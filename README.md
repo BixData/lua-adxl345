@@ -32,8 +32,19 @@ z = 1.036 G
 ### Configuring measurement range
 
 ```lua
-adxl345.setRange(i2c, adxl345.Range[ '2_G'])
-adxl345.setRange(i2c, adxl345.Range[ '4_G'])
-adxl345.setRange(i2c, adxl345.Range[ '8_G'])
-adxl345.setRange(i2c, adxl345.Range['16_G'])
+adxl345.setRange(i2c, adxl345.Range['2_G'])
+adxl345.enableMeasurement(i2c)
+...
 ```
+
+Valid values are `2_G`, `4_G`, `8_G`, and `16_G`.
+
+### Configuring bandwidth rate
+
+```lua
+adxl345.setBandwidthRate(i2c, adxl345.BandwidthRate['100_HZ'])
+adxl345.enableMeasurement(i2c)
+...
+```
+
+Valid values are `3200_HZ`, `1600_HZ`, `800_HZ`, `400_HZ`, `200_HZ`, `100_HZ`, `50_HZ`, `25_HZ`, `12_5_HZ`, `6_25_HZ`, `3_13_HZ`, `1_56_HZ`, `0_78_HZ`, `0_39_HZ`, `0_20_HZ`, `0_10_HZ`.

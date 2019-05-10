@@ -2,38 +2,39 @@ local bit32 = require 'bit32'
 local I2C = require 'periphery'.I2C
 
 local M = {
+  BandwidthRate = {
+    ['3200_HZ'] = 0x0f,
+    ['1600_HZ'] = 0x0e,
+    [ '800_HZ'] = 0x0d,
+    [ '400_HZ'] = 0x0c,
+    [ '200_HZ'] = 0x0b,
+    [ '100_HZ'] = 0x0a, -- default
+    [  '50_HZ'] = 0x09,
+    [  '25_HZ'] = 0x08,
+    ['12_5_HZ'] = 0x07,
+    ['6_25_HZ'] = 0x06,
+    ['3_13_HZ'] = 0x05,
+    ['1_56_HZ'] = 0x04,
+    ['0_78_HZ'] = 0x03,
+    ['0_39_HZ'] = 0x02,
+    ['0_20_HZ'] = 0x01,
+    ['0_10_HZ'] = 0x00
+  },
   ConversionFactor = {
     SCALE_MULTIPLIER = 0.004,
     STANDARD_GRAVITY = 9.80665
   },
-  DataRate = {
-    ['3200_HZ'] = 0x1111,
-    ['1600_HZ'] = 0x1110,
-    [ '800_HZ'] = 0x1101,
-    [ '400_HZ'] = 0x1100,
-    [ '200_HZ'] = 0x1011,
-    [ '100_HZ'] = 0x1010,
-    [  '50_HZ'] = 0x1001,
-    [  '25_HZ'] = 0x1000,
-    ['12_5_HZ'] = 0x0111,
-    ['6_25_HZ'] = 0x0110,
-    ['3_13_HZ'] = 0x0101,
-    ['1_56_HZ'] = 0x0100,
-    ['0_78_HZ'] = 0x0011,
-    ['0_39_HZ'] = 0x0010,
-    ['0_20_HZ'] = 0x0001,
-    ['0_10_HZ'] = 0x0000
-  },
   DEVICE = 0x53,
   MEASURE = 0x08,
   MemoryMap = {
+    BW_RATE     = 0x2c,
     POWER_CTL   = 0x2d,
     DATA_FORMAT = 0x31,
-    REG_DATAX0  = 0x32
+    DATAX0      = 0x32
   },
   Range = {
-    ['16_G'] = 0x11,
-    [ '8_G'] = 0x10,
+    ['16_G'] = 0x03,
+    [ '8_G'] = 0x02,
     [ '4_G'] = 0x01,
     [ '2_G'] = 0x00
   }
@@ -45,7 +46,7 @@ function M.enableMeasurement(i2c)
 end
 
 function M.readAcceleration(i2c)
-  local msgs = {{M.MemoryMap.REG_DATAX0}, {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, flags=I2C.I2C_M_RD}}
+  local msgs = {{M.MemoryMap.DATAX0}, {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, flags=I2C.I2C_M_RD}}
   i2c:transfer(M.DEVICE, msgs)
   local data = msgs[2]
   local x = M.readShort(data[1], data[2]) * M.ConversionFactor.SCALE_MULTIPLIER
@@ -62,6 +63,11 @@ end
 
 function M.readUShort(lsb, msb)
   return lsb + msb * 256
+end
+
+function M.setBandwidthRate(i2c, bandwidthRateFlag)
+  local msgs = {{M.MemoryMap.BW_RATE, bandwidthRateFlag}}
+  i2c:transfer(M.DEVICE, msgs)
 end
 
 function M.setRange(i2c, rangeFlag)

@@ -50,6 +50,19 @@ it('readShort', function()
   assertEquals(-10412, adxl345.readShort(lsb, msb))
 end) 
 
+it('setBandwidthRate', function()
+  local i2c = periphery.I2C('/dev/i2c-1')
+  adxl345.enableMeasurement(i2c)
+  adxl345.setRange(i2c, adxl345.Range['2_G'])
+  for _,bandwidthRateFlag in pairs(adxl345.BandwidthRate) do
+    adxl345.setBandwidthRate(i2c, bandwidthRateFlag)
+    local x,y,z = adxl345.readAcceleration(i2c)
+    assertEquals(true, -2 <= x and x <= 2)
+    assertEquals(true, -2 <= y and y <= 2)
+    assertEquals(true, -2 <= z and z <= 2)
+  end
+end)
+
 it('setRange', function()
   local i2c = periphery.I2C('/dev/i2c-1')
   adxl345.enableMeasurement(i2c)
