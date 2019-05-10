@@ -28,3 +28,12 @@ x = -0.028 G
 y = 0.060 G
 z = 1.036 G
 ```
+
+### Configuring measurement range
+
+```lua
+adxl345.setRange(i2c, adxl345.Range[ '2_G'])
+adxl345.setRange(i2c, adxl345.Range[ '4_G'])
+adxl345.setRange(i2c, adxl345.Range[ '8_G'])
+adxl345.setRange(i2c, adxl345.Range['16_G'])
+```

@@ -27,8 +27,9 @@ local M = {
   DEVICE = 0x53,
   MEASURE = 0x08,
   MemoryMap = {
-    POWER_CTL  = 0x2d,
-    REG_DATAX0 = 0x32
+    POWER_CTL   = 0x2d,
+    DATA_FORMAT = 0x31,
+    REG_DATAX0  = 0x32
   },
   Range = {
     ['16_G'] = 0x11,
@@ -61,6 +62,17 @@ end
 
 function M.readUShort(lsb, msb)
   return lsb + msb * 256
+end
+
+function M.setRange(i2c, rangeFlag)
+  local msgs = {{M.MemoryMap.DATA_FORMAT}, {0x00, flags=I2C.I2C_M_RD}}
+  i2c:transfer(M.DEVICE, msgs)
+  local value = msgs[2][1]
+  value = bit32.band(value, 0xf0)
+  value = bit32.bor(value, rangeFlag or M.Range['2_G'])
+  value = bit32.bor(value, 0x08)
+  msgs = {{M.MemoryMap.DATA_FORMAT, value}}
+  i2c:transfer(M.DEVICE, msgs)
 end
 
 return M
