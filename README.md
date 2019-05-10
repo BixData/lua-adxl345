@@ -13,6 +13,7 @@ local adxl345 = require 'adxl345'
 local periphery = require 'periphery'
 
 local i2c = periphery.I2C('/dev/i2c-1')
+adxl345.enableMeasurement(i2c)
 local x,y,z = adxl345.readAcceleration(i2c)
 
 print(string.format('x = %2.3f', x))

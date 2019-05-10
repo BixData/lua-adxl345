@@ -25,7 +25,9 @@ local M = {
     ['0_10_HZ'] = 0x0000
   },
   DEVICE = 0x53,
+  MEASURE = 0x08,
   MemoryMap = {
+    POWER_CTL  = 0x2d,
     REG_DATAX0 = 0x32
   },
   Range = {
@@ -35,6 +37,11 @@ local M = {
     [ '2_G'] = 0x00
   }
 }
+
+function M.enableMeasurement(i2c)
+  local msgs = {{M.MemoryMap.POWER_CTL, M.MEASURE}}
+  i2c:transfer(M.DEVICE, msgs)
+end
 
 function M.readAcceleration(i2c)
   local msgs = {{M.MemoryMap.REG_DATAX0}, {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, flags=I2C.I2C_M_RD}}

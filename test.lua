@@ -31,10 +31,13 @@ end
 -- ============================================================================
 
 it('readAcceleration', function()
-  local I2C = periphery.I2C
-  local i2c = I2C('/dev/i2c-1')
+  local i2c = periphery.I2C('/dev/i2c-1')
+  adxl345.enableMeasurement(i2c)
   local x,y,z = adxl345.readAcceleration(i2c)
   print('**', x, y, z)
+  assertEquals(true, x ~= 0)
+  assertEquals(true, y ~= 0)
+  assertEquals(true, z ~= 0)
 end)
 
 it('readUShort', function()
