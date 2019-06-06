@@ -4,6 +4,16 @@
 
 A [lua-periphery](https://github.com/vsergeev/lua-periphery) based sensor driver for the ADXL345 3-axis accelerometer.
 
+## Installing
+
+If you are on Linux:
+
+```sh
+$ luarocks install adxl345
+```
+
+Otherwise, you can use the Lua module from within a Go app via [glua-periphery](https://github.com/BixData/gluaperiphery).
+
 ## Using
 
 ### Taking a reading
