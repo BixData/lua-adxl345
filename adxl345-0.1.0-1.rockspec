@@ -1,8 +1,8 @@
 package = "adxl345"
-version = "0.1.0-0"
+version = "0.1.0-1"
 source = {
-   url = "https://github.com/BixData/lua-adxl345/archive/0.1.0-0.tar.gz",
-   dir = "adxl345-0.1.0-0"
+   url = "https://github.com/BixData/lua-adxl345/archive/0.1.0-1.tar.gz",
+   dir = "lua-adxl345-0.1.0-1"
 }
 description = {
    summary = "ADXL345 I²C Accelerometer sensor driver",
