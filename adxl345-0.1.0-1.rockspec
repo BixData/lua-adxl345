@@ -1,7 +1,7 @@
 package = "adxl345"
 version = "0.1.0-1"
 source = {
-   url = "https://github.com/BixData/lua-adxl345/archive/0.1.0-1.tar.gz",
+   url = "https://github.com/nubix-io/lua-adxl345/archive/0.1.0-1.tar.gz",
    dir = "lua-adxl345-0.1.0-1"
 }
 description = {
@@ -10,7 +10,7 @@ description = {
      The ADXL345 is a small, thin, ultralow power, 3-axis accelerometer with high
      resolution (13-bit) measurement at up to ±16 g. 
    ]],
-   homepage = "https://github.com/BixData/lua-adxl345",
+   homepage = "https://github.com/nubix-io/lua-adxl345",
    maintainer = "David Rauschenbach",
    license = "MIT"
 }
