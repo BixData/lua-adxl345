@@ -8,10 +8,10 @@ description = {
    summary = "ADXL345 I²C Accelerometer sensor driver",
    detailed = [[
      The ADXL345 is a small, thin, ultralow power, 3-axis accelerometer with high
-     resolution (13-bit) measurement at up to ±16 g. 
+     resolution (13-bit) measurement at up to ±16 g.
    ]],
    homepage = "https://github.com/nubix-io/lua-adxl345",
-   maintainer = "David Rauschenbach",
+   maintainer = "Nubix Inc.",
    license = "MIT"
 }
 dependencies = {
